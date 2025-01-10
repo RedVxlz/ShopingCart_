@@ -19,42 +19,42 @@
         {
             try
             {
-                double dCash = double.Parse(tb_cash.Text);
+                double dCash=double.Parse(tb_cash.Text);
 
                 double dBeverageTotal = 0;
                 double dFoodTotal = 0;
 
                 if (chb_Coffee.Checked)
                 {
-                    dBeverageTotal += GetItemTotal(tb_Coffee_Price.Text, tb_Coffee_Quantity.Text);
+                    dBeverageTotal+=GetItemTotal(tb_Coffee_Price.Text,tb_Coffee_Quantity.Text);
                 }
                 if (chb_Greentea.Checked)
                 {
-                    dBeverageTotal += GetItemTotal(tb_Greentea_Price.Text, tb_Greentea_Quantity.Text);
+                    dBeverageTotal+=GetItemTotal(tb_Greentea_Price.Text,tb_Greentea_Quantity.Text);
                 }
 
                 if (chb_noodle.Checked)
                 {
-                    dFoodTotal += GetItemTotal(tb_Noodle_Price.Text, tb_Noodle_Quantity.Text);
+                    dFoodTotal+=GetItemTotal(tb_Noodle_Price.Text, tb_Noodle_Quantity.Text);
                 }
                 if (chb_pizza.Checked)
                 {
-                    dFoodTotal += GetItemTotal(tb_Pizza_Price.Text, tb_Pizza_Quantity.Text);
+                    dFoodTotal+=GetItemTotal(tb_Pizza_Price.Text,tb_Pizza_Quantity.Text);
                 }
 
-                double dGrandTotal = dBeverageTotal + dFoodTotal;
+                double dGrandTotal = dBeverageTotal+dFoodTotal;
 
-                double dTotalDiscount = CalculateTotalDiscount(dBeverageTotal, dFoodTotal, dGrandTotal);
+                double dTotalDiscount = CalculateTotalDiscount(dBeverageTotal,dFoodTotal,dGrandTotal);
 
-                dGrandTotal -= dTotalDiscount;
+                dGrandTotal-=dTotalDiscount;
 
-                if (dCash < dGrandTotal)
+                if (dCash<dGrandTotal)
                 {
-                    MessageBox.Show("เงินสดไม่เพียงพอ", "ข้อผิดพลาด", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("เงินสดไม่เพียงพอ","ข้อผิดพลาด",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                     return;
                 }
 
-                double dChange = dCash - dGrandTotal;
+                double dChange = dCash-dGrandTotal;
 
                 tb_total.Text = dGrandTotal.ToString("F2");
                 tb_change.Text = dChange.ToString("F2");
@@ -63,11 +63,11 @@
             }
             catch (FormatException)
             {
-                MessageBox.Show("กรุณากรอกข้อมูลตัวเลขให้ถูกต้อง", "ข้อผิดพลาด", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("กรุณากรอกข้อมูลตัวเลขให้ถูกต้อง","ข้อผิดพลาด",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
         }
 
-        private double GetItemTotal(string priceText, string quantityText)
+        private double GetItemTotal(string priceText,string quantityText)
         {
             double price = 0, quantity = 0;
             try
@@ -88,21 +88,21 @@
             double dDiscountFood = chb_food.Checked ? double.Parse(tb_Food_Discount.Text) : 0;
             double dDiscountAll = chb_all.Checked ? double.Parse(tb_total_Discount.Text) : 0;
 
-            double dTotalDiscount = (dBeverageTotal * dDiscountBev / 100) + (dFoodTotal * dDiscountFood / 100) + (dGrandTotal * dDiscountAll / 100);
+            double dTotalDiscount = (dBeverageTotal*dDiscountBev/100)+(dFoodTotal*dDiscountFood/100)+(dGrandTotal*dDiscountAll/100);
 
             return dTotalDiscount;
         }
 
         private void CalculateChangeDenominations(double change)
         {
-            double[] denominations = { 1000, 500, 100, 50, 20, 10, 5, 1, 0.50, 0.25 };
+            double[] denominations = { 1000,500,100,50,20,10,5,1,0.50,0.25 };
             int[] changeCount = new int[denominations.Length];
             double remainChange = change;
 
-            for (int i = 0; i < denominations.Length; i++)
+            for (int i = 0; i<denominations.Length; i++)
             {
-                changeCount[i] = (int)(remainChange / denominations[i]);
-                remainChange %= denominations[i];
+                changeCount[i] = (int)(remainChange/denominations[i]);
+                remainChange%= denominations[i];
             }
 
             tb_1000.Text = changeCount[0].ToString();
